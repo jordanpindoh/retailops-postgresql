@@ -1,0 +1,10 @@
+ current_user  | count 
+---------------+-------
+ analyst_login |  5000
+(1 row)
+
+ ssl | version 
+-----+---------
+ t   | TLSv1.3
+(1 row)
+

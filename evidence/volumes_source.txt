@@ -1,0 +1,4 @@
+customers|300
+order_items|9989
+orders|5000
+products|80

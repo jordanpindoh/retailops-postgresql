@@ -1,0 +1,1 @@
+PASS : volumes identiques entre retail_admin et retail_restore_check

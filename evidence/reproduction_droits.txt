@@ -1,0 +1,23 @@
+=== Analyste : lecture autorisee ===
+SET
+ current_user  | count 
+---------------+-------
+ analyst_login |  5000
+(1 row)
+
+=== Analyste : modification refusee attendue ===
+BEGIN
+psql:/sql/projet/06_tests_droits.sql:7: ERROR:  permission denied for table orders
+ROLLBACK
+RESET
+=== Application : modification autorisee ===
+SET
+BEGIN
+ order_id | status 
+----------+--------
+        1 | paid
+(1 row)
+
+UPDATE 1
+ROLLBACK
+RESET

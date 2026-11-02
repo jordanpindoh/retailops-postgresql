@@ -1,0 +1,9 @@
+.env
+.git
+config/tls/*.key
+backups/
+evidence/
+data/
+
+.env.*
+backups_repro/

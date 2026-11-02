@@ -1,0 +1,27 @@
+=== Preparation : solde initial de 100 ===
+CREATE TABLE
+INSERT 0 1
+=== COMMIT : modification conservee ===
+BEGIN
+UPDATE 1
+COMMIT
+ solde | commit_valide 
+-------+---------------
+    80 | t
+(1 row)
+
+=== ROLLBACK : modification annulee ===
+BEGIN
+UPDATE 1
+ solde_pendant_transaction 
+---------------------------
+                        50
+(1 row)
+
+ROLLBACK
+ solde | rollback_valide 
+-------+-----------------
+    80 | t
+(1 row)
+
+DROP TABLE

@@ -1,0 +1,38 @@
+BEGIN
+COPY 300
+COPY 80
+COPY 5000
+COPY 9989
+ setval 
+--------
+    300
+(1 row)
+
+ setval 
+--------
+     80
+(1 row)
+
+ setval 
+--------
+   5000
+(1 row)
+
+ setval 
+--------
+   9989
+(1 row)
+
+COMMIT
+ANALYZE
+ANALYZE
+ANALYZE
+ANALYZE
+ table_name  | lignes 
+-------------+--------
+ customers   |    300
+ products    |     80
+ orders      |   5000
+ order_items |   9989
+(4 rows)
+

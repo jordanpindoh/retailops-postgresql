@@ -1,0 +1,1 @@
+db-1  | 2026-11-02 17:22:17.256 UTC [215] LOG:  AUDIT: SESSION,1,1,WRITE,UPDATE,,,<not logged>,<not logged>

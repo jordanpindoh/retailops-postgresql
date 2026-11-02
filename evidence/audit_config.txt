@@ -1,0 +1,20 @@
+ shared_preload_libraries 
+--------------------------
+ pgaudit
+(1 row)
+
+   pgaudit.log    
+------------------
+ write, ddl, role
+(1 row)
+
+ extname | extversion 
+---------+------------
+ pgaudit | 17.1
+(1 row)
+
+ count 
+-------
+  5000
+(1 row)
+

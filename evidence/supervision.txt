@@ -1,0 +1,31 @@
+   datname    | numbackends | xact_commit | xact_rollback | deadlocks 
+--------------+-------------+-------------+---------------+-----------
+ retail_admin |           1 |         771 |             8 |         0
+(1 row)
+
+ pid | usename | application_name | duree_requete | wait_event_type | wait_event | bloque_par 
+-----+---------+------------------+---------------+-----------------+------------+------------
+(0 rows)
+
+ taille_base 
+-------------
+ 9326 kB
+(1 row)
+
+   relname   | n_live_tup | n_dead_tup | last_autovacuum | last_autoanalyze |         last_analyze          
+-------------+------------+------------+-----------------+------------------+-------------------------------
+ customers   |        300 |          0 |                 |                  | 2026-11-02 18:03:40.066114+00
+ order_items |       9989 |          0 |                 |                  | 2026-11-02 18:03:40.114372+00
+ orders      |       5000 |          0 |                 |                  | 2026-11-02 18:03:40.089233+00
+ products    |         80 |          0 |                 |                  | 2026-11-02 18:03:40.072682+00
+(4 rows)
+
+ archived_count | failed_count |      last_archived_time       | last_failed_time 
+----------------+--------------+-------------------------------+------------------
+              1 |            0 | 2026-11-02 18:05:59.860658+00 | 
+(1 row)
+
+ pid | usename | application_name | duree 
+-----+---------+------------------+-------
+(0 rows)
+

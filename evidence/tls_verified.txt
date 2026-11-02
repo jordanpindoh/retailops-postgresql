@@ -1,0 +1,5 @@
+ current_user  | ssl | version |         cipher         
+---------------+-----+---------+------------------------
+ analyst_login | t   | TLSv1.3 | TLS_AES_256_GCM_SHA384
+(1 row)
+

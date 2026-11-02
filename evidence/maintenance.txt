@@ -1,0 +1,20 @@
+ taille_base 
+-------------
+ 9318 kB
+(1 row)
+
+   relname   | taille_totale | n_live_tup | n_dead_tup | last_autovacuum |         last_analyze          
+-------------+---------------+------------+------------+-----------------+-------------------------------
+ order_items | 784 kB        |          0 |          0 |                 | 
+ orders      | 648 kB        |       5000 |          6 |                 | 2026-11-02 17:29:44.981297+00
+ customers   | 112 kB        |          0 |          0 |                 | 
+ products    | 48 kB         |          0 |          0 |                 | 
+(4 rows)
+
+VACUUM
+  spcname   | emplacement 
+------------+-------------
+ pg_default | 
+ pg_global  | 
+(2 rows)
+

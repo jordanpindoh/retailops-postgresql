@@ -1,0 +1,11 @@
+           controle           | anomalies 
+------------------------------+-----------
+ Doublons clients             |         0
+ Doublons produits            |         0
+ Doublons commandes           |         0
+ Doublons lignes de commande  |         0
+ Commandes sans client valide |         0
+ Lignes sans commande valide  |         0
+ Lignes sans produit valide   |         0
+(7 rows)
+

@@ -1,0 +1,52 @@
+;
+; Archive created at 2026-11-02 17:23:24 UTC
+;     dbname: retail_admin
+;     TOC Entries: 42
+;     Compression: gzip
+;     Dump Version: 1.16-0
+;     Format: CUSTOM
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 17.11
+;     Dumped by pg_dump version: 17.11
+;
+;
+; Selected TOC Entries:
+;
+7; 2615 16388 SCHEMA - retail postgres
+3511; 0 0 ACL - SCHEMA retail postgres
+2; 3079 16452 EXTENSION - pgaudit 
+3512; 0 0 COMMENT - EXTENSION pgaudit 
+220; 1259 16390 TABLE retail customers postgres
+3513; 0 0 ACL retail TABLE customers postgres
+219; 1259 16389 SEQUENCE retail customers_customer_id_seq postgres
+226; 1259 16427 TABLE retail order_items postgres
+3514; 0 0 ACL retail TABLE order_items postgres
+225; 1259 16426 SEQUENCE retail order_items_item_id_seq postgres
+3515; 0 0 ACL retail SEQUENCE order_items_item_id_seq postgres
+224; 1259 16412 TABLE retail orders postgres
+3516; 0 0 ACL retail TABLE orders postgres
+3517; 0 0 ACL retail COLUMN orders.status postgres
+223; 1259 16411 SEQUENCE retail orders_order_id_seq postgres
+3518; 0 0 ACL retail SEQUENCE orders_order_id_seq postgres
+222; 1259 16401 TABLE retail products postgres
+3519; 0 0 ACL retail TABLE products postgres
+221; 1259 16400 SEQUENCE retail products_product_id_seq postgres
+3497; 0 16390 TABLE DATA retail customers postgres
+3503; 0 16427 TABLE DATA retail order_items postgres
+3501; 0 16412 TABLE DATA retail orders postgres
+3499; 0 16401 TABLE DATA retail products postgres
+3520; 0 0 SEQUENCE SET retail customers_customer_id_seq postgres
+3521; 0 0 SEQUENCE SET retail order_items_item_id_seq postgres
+3522; 0 0 SEQUENCE SET retail orders_order_id_seq postgres
+3523; 0 0 SEQUENCE SET retail products_product_id_seq postgres
+3337; 2606 16399 CONSTRAINT retail customers customers_email_key postgres
+3339; 2606 16397 CONSTRAINT retail customers customers_pkey postgres
+3347; 2606 16433 CONSTRAINT retail order_items order_items_pkey postgres
+3345; 2606 16420 CONSTRAINT retail orders orders_pkey postgres
+3341; 2606 16408 CONSTRAINT retail products products_pkey postgres
+3343; 2606 16410 CONSTRAINT retail products products_sku_key postgres
+3349; 2606 16434 FK CONSTRAINT retail order_items order_items_order_id_fkey postgres
+3350; 2606 16439 FK CONSTRAINT retail order_items order_items_product_id_fkey postgres
+3348; 2606 16421 FK CONSTRAINT retail orders orders_customer_id_fkey postgres
+2063; 826 16451 DEFAULT ACL retail DEFAULT PRIVILEGES FOR TABLES postgres

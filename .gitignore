@@ -1,0 +1,10 @@
+.env
+backups/*.dump
+
+config/tls/*.key
+
+backups/wal/
+
+.env.*
+!.env.example
+backups_repro/

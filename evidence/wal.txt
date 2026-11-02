@@ -1,0 +1,17 @@
+ archive_mode 
+--------------
+ on
+(1 row)
+
+                  archive_command                   
+----------------------------------------------------
+ test ! -f /backups/wal/%f && cp %p /backups/wal/%f
+(1 row)
+
+ archived_count | failed_count |    last_archived_wal     
+----------------+--------------+--------------------------
+              1 |            0 | 000000010000000000000002
+(1 row)
+
+total 32768
+-rw-------  1 jordanpindoh  staff    16M Nov  2 19:05 000000010000000000000002
