@@ -145,3 +145,12 @@ docker compose --env-file .env --env-file .env.repro up -d --wait
   la reproductibilité exacte de la construction.
 - La reconstruction a été testée sur un volume neuf sur le même Mac,
   sans valider une installation sur une autre machine.
+
+## Validations complémentaires du 3 novembre 2026
+- Insertion réelle avec app_login : création d'une commande et de sa ligne,
+  puis annulation par ROLLBACK. Les quatre validations retournent t.
+  Script : sql/projet/15_test_insertion.sql.
+  Preuve : evidence/test_insertion.txt.
+- Blocage entre deux sessions observé avec pg_stat_activity et pg_locks.
+  Preuve brute horodatée : evidence/preuve_blocage.txt.
+  Les transactions du test ont été annulées pour libérer les verrous.
