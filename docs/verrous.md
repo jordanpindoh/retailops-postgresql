@@ -5,15 +5,20 @@ Deux transactions ont tenté de modifier la commande 1.
 La session A détenait le verrou ; la session B attendait sa libération.
 
 Résultats relevés pendant le test :
-- Session A : PID 1283.
-- Session B : PID 1704.
-- pg_blocking_pids(1704) : {1283}.
+- Session A : PID 3309.
+- Session B : PID 3403.
+- pg_blocking_pids(3403) : {3309}.
 - Attente de B : wait_event_type = Lock ; wait_event = transactionid.
-- Transaction 798 : ExclusiveLock accordé à A ; ShareLock non accordé à B.
+- Transaction 813 : ExclusiveLock accordé à A ; ShareLock non accordé à B.
 
 Ces identifiants correspondent au test effectué et changeront à chaque essai.
 Il s'agit d'une attente de verrou, pas d'un deadlock : aucune attente circulaire
 n'a été observée.
+
+Preuve brute : evidence/preuve_blocage.txt, capture du 3 novembre 2026 à
+13:33:09 UTC. Une ancienne session A, PID 1300, est idle et ne bloque rien.
+La libération du verrou a été effectuée interactivement ; elle ne figure
+pas dans cette capture de l’attente.
 
 ## Reproduction
 Ouvrir deux onglets du Terminal. Dans chacun, depuis le dossier du projet :

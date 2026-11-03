@@ -1,5 +1,5 @@
 # RetailOps — Administration PostgreSQL
-Tchoupou Pindoh Jordan | M1 Data & IA — NEXA | 2 novembre 2026
+Tchoupou Pindoh Jordan | M1 Data & IA — NEXA | 3 novembre 2026
 
 
 ## Mission et architecture
@@ -53,7 +53,7 @@ Les connexions réseau utilisent SCRAM-SHA-256. pg_hba.conf refuse les connexion
 Une connexion analyst_login avec sslmode=verify-full et le certificat local explicitement approuvé a réussi ; pg_stat_ssl indique TLSv1.3 et ssl=t. Une connexion sslmode=disable est refusée par pg_hba.conf. Le certificat autosigné CN=localhost convient à l’essai local ; une production nécessite une gestion de confiance, de renouvellement et de noms adaptée. Preuves : tls_verified.txt, tls_refus.txt et reproduction_tls.txt.
 
 ### Preuves des permissions
-Une connexion réelle de l’analyste a permis de lire 5 000 commandes. Son UPDATE a été refusé. L’UPDATE du statut par app_login a réussi puis a été annulé. Le script 06 rejoue les autorisations via SET ROLE : il vérifie les permissions, pas l’authentification par mot de passe. Les preuves initiales et de reconstruction sont conservées.
+Une connexion réelle de l’analyste a permis de lire 5 000 commandes. Son UPDATE a été refusé. L’UPDATE du statut par app_login a réussi puis a été annulé. Le script 06 rejoue les autorisations via SET ROLE : il vérifie les permissions, pas l’authentification par mot de passe. Les preuves initiales et de reconstruction sont conservées. Le script 15 complète ces essais par une insertion réelle sous app_login : commande 5001 et ligne 9990 créées, puis annulées. Les quatre contrôles de création et d’annulation valent t (evidence/test_insertion.txt). Les séquences avancent malgré le ROLLBACK ; ces numéros ne sont pas réutilisés automatiquement.
 
 ### Audit proportionné
 pgAudit est préchargé, créé comme extension et configuré pour write, ddl, role. Une trace AUDIT de classe WRITE et commande UPDATE a été relevée, y compris pour une écriture annulée. Le texte SQL et les paramètres sont désactivés dans ces événements. Les journaux techniques restent à examiner avant diffusion.
@@ -68,10 +68,10 @@ Le jeu est synthétique. La note docs/rgpd.md décrit finalités, accès, conser
 Le script 14 utilise une table temporaire : un solde initial de 100 passe à 80 puis est validé par COMMIT. Une seconde opération le fait passer temporairement à 50 ; ROLLBACK rétablit 80. Les deux indicateurs de validation valent t. La table temporaire est supprimée et les données métier sont préservées. Preuve : evidence/transactions.txt.
 
 ### Blocage observé
-Deux sessions ont modifié la commande 1 dans des transactions ouvertes. B (PID 1704) attendait A (PID 1283) : wait_event_type=Lock, wait_event=transactionid et pg_blocking_pids(1704)={1283}. Les identifiants sont ceux de cet essai et ne sont pas constants.
+Deux sessions ont modifié la commande 1 dans des transactions ouvertes. La capture brute du 3 novembre 2026 à 13:33:09 UTC montre B (PID 3403) en attente de A (PID 3309) : wait_event_type=Lock, wait_event=transactionid et pg_blocking_pids(3403)={3309}. Une ancienne session A (PID 1300), idle et sans bloqueur, apparaît aussi dans la capture mais ne participe pas au blocage. Les identifiants sont ceux de cet essai et ne sont pas constants.
 
 ### Diagnostic et résolution
-pg_locks montrait un ExclusiveLock accordé à A sur la transaction 798 et un ShareLock non accordé à B sur la même transaction. ROLLBACK dans A a libéré le verrou ; B a terminé son UPDATE puis a également exécuté ROLLBACK. Il s’agissait d’une attente simple et non d’un deadlock. docs/verrous.md conserve les observations transcrites et la procédure, pas une capture brute indépendante du test.
+pg_locks montre un ExclusiveLock accordé à A sur la transaction 813 et un ShareLock non accordé à B sur cette même transaction. B détient aussi son propre ExclusiveLock sur la transaction 814. ROLLBACK dans A a libéré le verrou ; B a terminé son UPDATE puis a également exécuté ROLLBACK. Il s’agissait d’une attente simple et non d’un deadlock. La sortie brute est conservée dans evidence/preuve_blocage.txt ; docs/verrous.md décrit la procédure. La capture établit l’attente ; la résolution par ROLLBACK a été effectuée interactivement et n’est pas enregistrée dans ce même fichier.
 
 ### Espace et maintenance
 La supervision relève une base de 9 326 kB. Après actualisation des statistiques, les estimations de lignes sont cohérentes avec les volumes importés et n_dead_tup vaut zéro. VACUUM ANALYZE a été exécuté sur orders. VACUUM rend l’espace des anciennes versions réutilisable ; il ne garantit pas une diminution de la taille du fichier sur disque.
@@ -119,7 +119,7 @@ Le relevé conservé indique une connexion, zéro deadlock, aucun bloqueur ni re
 Un projet Compose distinct retailops_repro, sur le port 5434 et un volume neuf, a été initialisé par script. Il retrouve les quatre volumes, ssl=on, archive_mode=on et pgAudit 17.1. La lecture avec connexion verify-full et les autorisations SET ROLE ont été vérifiées. Les mots de passe restent configurés interactivement. L’essai a été réalisé sur le même Mac, pas sur une autre machine.
 
 ### Livrables et réserves
-Le dossier réunit Dockerfile, Compose, 14 scripts SQL, CSV, documentation et preuves. Le script refuse de réimporter un schéma existant et ne constitue pas un outil de migration. La branche pgAudit reste mutable. Les preuves initiales sont conservées sans les présenter comme une nouvelle exécution par le rédacteur du rapport. Les outils Docker/PostgreSQL ne sont pas disponibles dans l’environnement de revue : aucune relance indépendante du service n’y a été effectuée.
+Le dossier réunit Dockerfile, Compose, 15 scripts SQL, CSV, documentation et preuves. Le script refuse de réimporter un schéma existant et ne constitue pas un outil de migration. La branche pgAudit reste mutable. Les preuves initiales sont conservées sans les présenter comme une nouvelle exécution par le rédacteur du rapport. Les outils Docker/PostgreSQL ne sont pas disponibles dans l’environnement de revue : aucune relance indépendante du service n’y a été effectuée.
 
 ### Références et suite
-Sources : énoncé RetailOps fourni, fichiers du projet et evidence/. Références techniques : postgresql.org/docs/17/, github.com/pgaudit/pgaudit et docs.docker.com/compose/. Priorités suivantes : figer la révision pgAudit, renforcer les tests automatiques avec verdicts, limiter les données visibles et tester une reprise complète. La publication GitHub exclura secrets, clés privées, dumps et WAL.
+Sources : énoncé RetailOps fourni, fichiers du projet et evidence/. Références techniques : postgresql.org/docs/17/, github.com/pgaudit/pgaudit et docs.docker.com/compose/. Priorités suivantes : figer la révision pgAudit, renforcer les tests automatiques avec verdicts, limiter les données visibles et tester une reprise complète. Le dépôt GitHub publié exclut secrets, clés privées, dumps et WAL. Le ZIP de remise inclut le dump requis ; les deux livrables ont des périmètres distincts.

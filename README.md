@@ -94,6 +94,7 @@ doivent retourner zéro anomalie.
 - 12 : configuration d'archivage WAL.
 - 13 : supervision.
 - 14 : démonstration COMMIT et ROLLBACK.
+- 15 : insertion applicative et annulation vérifiées.
 
 Ne pas exécuter tous les scripts aveuglément dans l'ordre :
 l'import et la création des rôles supposent une base neuve ;
@@ -154,3 +155,7 @@ docker compose --env-file .env --env-file .env.repro up -d --wait
 - Blocage entre deux sessions observé avec pg_stat_activity et pg_locks.
   Preuve brute horodatée : evidence/preuve_blocage.txt.
   Les transactions du test ont été annulées pour libérer les verrous.
+
+La preuve brute de blocage a été corrigée : capture du 3 novembre 2026 à
+13:33:09 UTC, B (3403) bloquée par A (3309), transaction 813.
+Le rapport PDF et sa version Markdown intègrent ces validations.
