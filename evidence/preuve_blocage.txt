@@ -1,16 +1,14 @@
-       date_observation        
--------------------------------
- 2026-11-03 13:11:03.838595+00
-(1 row)
-
- pid  |  application_name   | state  | wait_event_type | wait_event | bloque_par 
-------+---------------------+--------+-----------------+------------+------------
- 1458 | retailops_session_B | active |                 |            | {}
- 1300 | retailops_session_A | idle   | Client          | ClientRead | {}
-(2 rows)
+          observation          | pid  |  application_name   |        state        | wait_event_type |  wait_event   | bloque_par 
+-------------------------------+------+---------------------+---------------------+-----------------+---------------+------------
+ 2026-11-03 13:33:09.07253+00  | 3309 | retailops_session_A | idle in transaction | Client          | ClientRead    | {}
+ 2026-11-03 13:33:09.073694+00 | 3403 | retailops_session_B | active              | Lock            | transactionid | {3309}
+ 2026-11-03 13:33:09.073714+00 | 1300 | retailops_session_A | idle                | Client          | ClientRead    | {}
+(3 rows)
 
   application_name   |   locktype    |     mode      | granted | transactionid 
 ---------------------+---------------+---------------+---------+---------------
- retailops_session_B | transactionid | ExclusiveLock | t       |           812
-(1 row)
+ retailops_session_B | transactionid | ExclusiveLock | t       |           814
+ retailops_session_A | transactionid | ExclusiveLock | t       |           813
+ retailops_session_B | transactionid | ShareLock     | f       |           813
+(3 rows)
 
